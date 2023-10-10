@@ -1,0 +1,19 @@
+name: vr01
+
+mgmt:
+  network: vr01
+  ipv4-subnet: 10.0.22.0/24
+
+topology:
+  nodes:
+    srl:
+      kind: srl
+      image: ghcr.io/nokia/srlinux
+    sros:
+      kind: vr-sros
+      image: vr-sros:23.7.R2
+      type: sr-1
+      license: /home/drelliot/license/license-sros23.txt
+
+  links:
+    - endpoints: ["srl:e1-1", "sros:eth1"]

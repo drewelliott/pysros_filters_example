@@ -1,0 +1,39 @@
+>>> printTree(c.running.get(path))
++-- admin-state: enable
++-- port: 1/1/c1/1
++-- ipv4: 
+|   `-- primary: 
+|       +-- address: 10.11.1.0
+|       `-- prefix-length: 31
++-- ipv6: 
+|   `-- address: 
+|       `-- 2000::1: 
+|           +-- prefix-length: 127
+|           `-- ipv6-address: 2000::1
+`-- interface-name: to-pe1
+>>> if ip_version == 4:
+...     intf_filter={ 'ipv4' : { 'primary' : { 'address' : local_address }}}
+...     all_interfaces = c.running.get('/nokia-conf:configure/router[router-name="Base"]/interface', filter=intf_filter)
+...     find_interface('ipv4', all_interfaces)
+... else:
+...     intf_filter={ 'ipv6' : { 'address' : local_address }}
+...     all_interfaces = c.running.get('/nokia-conf:configure/router[router-name="Base"]/interface', filter=intf_filter)
+...     find_interface('ipv6', all_interfaces)
+... 
+Time to disable interface: to-pe1
+Interface "to-pe1" has been disabled
+>>> printTree(c.running.get(path))
++-- admin-state: disable
++-- description: Disabled by EHS due to BGP neighbor down
++-- port: 1/1/c1/1
++-- ipv4: 
+|   `-- primary: 
+|       +-- address: 10.11.1.0
+|       `-- prefix-length: 31
++-- ipv6: 
+|   `-- address: 
+|       `-- 2000::1: 
+|           +-- prefix-length: 127
+|           `-- ipv6-address: 2000::1
+`-- interface-name: to-pe1
+>>> 
